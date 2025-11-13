@@ -290,3 +290,222 @@ class Dog(Animal):
 
 You can’t instantiate `Animal` directly — only subclasses that implement `speak()`.
 
+
+## ✅ **What is a decorator in Python, and where is it used?**
+
+A **decorator** is a function that takes another function as input, adds functionality to it, and returns a new function—without modifying the original function's code.
+
+**Used for:**
+
+* Logging
+* Authentication / authorization
+* Caching
+* Performance measurement
+* Input/output validation
+
+Example:
+
+```python
+def logger(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@logger
+def greet():
+    print("Hello")
+```
+
+---
+
+## ✅ **Difference between a generator and a function that returns a list**
+
+### **Generator**
+
+* Uses `yield`
+* Produces values one at a time (lazy evaluation)
+* Doesn’t store all values in memory
+* Returns an *iterator*
+
+### **Function returning a list**
+
+* Computes all values upfront
+* Stores entire list in memory
+* Potentially expensive for large outputs
+
+---
+
+## ✅ **When choose generators over lists? Memory implications**
+
+Choose **generators** when:
+
+* Dataset is large or infinite
+* You want lazy evaluation
+* You want faster start time (first item available instantly)
+
+**Memory implications:**
+
+* **List**: O(n) memory (stores everything)
+* **Generator**: O(1) memory (stores only the current value)
+
+---
+
+## ✅ **Threading vs Multiprocessing vs Asyncio**
+
+### **Threading**
+
+* Multiple threads inside one process
+* Good for **I/O-bound** tasks
+* Limited by the **GIL**
+* Not ideal for CPU-heavy tasks
+
+### **Multiprocessing**
+
+* Multiple processes, each with its **own Python interpreter**
+* Bypasses the GIL
+* Good for **CPU-bound** tasks
+* Higher memory usage (each process has its own memory)
+
+### **Asyncio**
+
+* Single-threaded concurrency using an event loop
+* Cooperative multitasking
+* Excellent for **high-volume I/O** (network calls, database calls)
+* Not useful for CPU-heavy tasks without moving to threads/processes
+
+---
+
+## ✅ **What is the GIL? How does it affect threading and multiprocessing?**
+
+**GIL = Global Interpreter Lock**, a mutex that allows only **one thread** to execute Python bytecode at a time.
+
+### **Effects**
+
+* **Threading**
+
+  * Threads cannot run CPU-bound Python code in parallel
+  * Good for I/O tasks because GIL is released during I/O waits
+
+* **Multiprocessing**
+
+  * Each process has its own interpreter → **no shared GIL**
+  * True parallelism for CPU-bound tasks
+
+---
+
+## ✅ **When to use threading, asyncio, and multiprocessing?**
+
+### **Use Threading when:**
+
+* Tasks are **I/O-bound**
+* Examples:
+
+  * Web scraping
+  * File operations
+  * API calls
+
+### **Use Asyncio when:**
+
+* High concurrency of I/O tasks
+* You want lightweight coroutines instead of threads
+* Examples:
+
+  * Async web servers
+  * Managing thousands of network connections
+
+### **Use Multiprocessing when:**
+
+* Tasks are **CPU-bound**
+* Examples:
+
+  * Machine learning computations
+  * Video/image processing
+  * Data transformations
+
+---
+
+## ✅ **CPU-bound vs I/O-bound tasks**
+
+### **CPU-bound**
+
+* Heavy computation
+* Performance limited by CPU speed
+* Examples: number crunching, image processing
+
+### **I/O-bound**
+
+* Waiting on external resources (network, disk, DB)
+* CPU spends most time idle
+* Examples: reading files, API calls, DB queries
+
+---
+
+## ✅ **Difference between `yield` and `return`**
+
+### `return`
+
+* Ends the function and returns a value
+* Function cannot continue execution afterward
+
+### `yield`
+
+* Pauses the function and returns a value
+* Function retains its state
+* Can resume execution on next iteration
+
+---
+
+## ✅ **Difference between using `open()` with explicit `.close()` vs using `with`**
+
+### Explicit open/close:
+
+```python
+f = open("file.txt")
+data = f.read()
+f.close()
+```
+
+**Risks:**
+
+* If an exception occurs, `close()` may never be called
+* Can cause resource leaks
+
+### Using `with`
+
+```python
+with open("file.txt") as f:
+    data = f.read()
+```
+
+**Benefits:**
+
+* Automatically closes file
+* Safe even if exceptions occur
+* Cleaner and more Pythonic
+
+---
+
+## ✅ **How to handle exceptions? Why is it important?**
+
+### Handling exceptions:
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("Cleanup code")
+```
+
+### Why it's important:
+
+* Prevents program crashes
+* Allows graceful recovery
+* Helps communicate errors clearly
+* Enables logging and debugging
+* Ensures cleanup of resources (e.g., DB connections, files)
+
+
+
