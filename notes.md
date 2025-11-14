@@ -121,15 +121,12 @@ What is a higher-order function? Give examples of built-in higher-order function
 - either 1. takes another function as an argument or 2. returns a function as a result
 - common built-in ones: map(), filter(), sorted()
 
+OOP principles:
+1. Abstraction: exposing only essential features while hiding implementation details
+2. Encapsulation: wrapping data or methods into a single class
+3. Inheritance: we have subclass from superclass, and we can extend the superclass to reuse its functionality
+4. Polymorphism: allowing different objects to be treated throught the same interface, by overriding and overloading
 
-### **1. Four Principles of OOP**
-
-1. **Encapsulation** – Bundling data (attributes) and methods (functions) that operate on that data into a single unit (class). It hides internal details from external access.
-2. **Abstraction** – Exposing only essential features while hiding the complex implementation details.
-3. **Inheritance** – Creating new classes from existing ones to reuse and extend functionality.
-4. **Polymorphism** – Allowing different objects to be treated through the same interface, where the same method behaves differently depending on the object.
-
----
 
 ### **2. `__str__` vs `__repr__`**
 
@@ -486,26 +483,28 @@ with open("file.txt") as f:
 
 ---
 
-## ✅ **How to handle exceptions? Why is it important?**
-
-### Handling exceptions:
-
-```python
-try:
-    result = 10 / 0
-except ZeroDivisionError:
-    print("Cannot divide by zero")
-finally:
-    print("Cleanup code")
-```
-
-### Why it's important:
-
-* Prevents program crashes
-* Allows graceful recovery
-* Helps communicate errors clearly
-* Enables logging and debugging
-* Ensures cleanup of resources (e.g., DB connections, files)
+How to handle exceptions? Why is it important?
+ - Exception handling: use try-except-finally block
+ - prevent program crash and helps communicate erors
 
 
+What are primary keys and foreign keys? How are they used in relational databases?
+- primary key is unique in the table and can not be null, foreign key is use for provid
 
+What is the difference between INNER JOIN, LEFT JOIN, and FULL OUTER JOIN?
+- Inner join: resulf with matching values
+- Left join: everything from left table + matching from right table
+- Full join: match from either tables
+  
+What is normalization?
+- A process to reduce anomilies, so we have better consistency/simplufy/standerization
+- 1NF ->single value attribute
+- 2NF -> all non-primary key is depend on primary key
+- 3NF -> Transitive Dependency
+  
+What are the different types of database relationships (1:1, 1:many, many:many) and how do you implement them in SQL?
+- 1-1 : one record can be link to exactly one record in another table -> foreign key in the table is also unique in that table
+- 1-many: 1 record can be link to many records in another table -> foreign key in the "many" side reference to the primary key to "1" side
+- many-many: 
+What are transactions and isolation levels? Explain the problems each isolation level solves.
+What's the difference between PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints?
