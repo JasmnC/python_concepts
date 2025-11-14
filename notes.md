@@ -144,119 +144,36 @@ What are property decorators in Python?
  - can have getters, setters, deleters
 
 What's the difference between public, protected (_), and private (__) attributes?
+* they are access modifier
+ - public: anywhere in the program
+ - when a method starts with _, this is for convention only, if you directly call it, you can still access it
+ - private -> python does not enforce strict restrictions, you should use Name Mangling, but direct access from outside will raise AttributeError
+
 What's Singleton pattern? How to implement it?
-What's Factory pattern? How to implement it?
-What is the self parameter?
-What are abstract base classes (ABC) in Python?
-
-
-
----
-
-### **4. `@classmethod` vs `@staticmethod`**
-
-* **`@classmethod`**
-
-  * Takes `cls` as the first parameter.
-  * Can access/modify *class-level* attributes.
-  * Used for alternative constructors.
-
-  ```python
-  class Circle:
-      def __init__(self, radius):
-          self.radius = radius
-      @classmethod
-      def from_diameter(cls, diameter):
-          return cls(diameter / 2)
-  ```
-* **`@staticmethod`**
-
-  * Takes no `self` or `cls`.
-  * A utility function logically related to the class but doesn’t access class or instance data.
-
----
-
-### **5. Property Decorators**
-
-Property decorators (`@property`) let you use methods like attributes while keeping encapsulation.
-They’re used to control access, validation, or computed values.
-
-```python
-class Temperature:
-    def __init__(self, celsius):
-        self._celsius = celsius
-
-    @property
-    def fahrenheit(self):
-        return (self._celsius * 9/5) + 32
-
-    @fahrenheit.setter
-    def fahrenheit(self, value):
-        self._celsius = (value - 32) * 5/9
-```
-
----
-
-### **6. Public, Protected, Private Attributes**
-
-* **Public (`var`)** → Accessible anywhere.
-* **Protected (`_var`)** → Conventionally internal use (not enforced).
-* **Private (`__var`)** → Name-mangled to prevent accidental access (`_ClassName__var`).
-
----
-
-### **7. Singleton Pattern**
-
-Ensures only one instance of a class exists.
-
-**Implementation:**
-
-```python
+- Ensures only one instance of a class exists.
 class Singleton:
     _instance = None
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
-```
 
----
+What's Factory pattern? How to implement it?
+- Creates objects without specifying the exact class of the object to be created.
+- Used when object creation logic is complex or dynamic.
 
-### **8. Factory Pattern**
-
-Creates objects without specifying the exact class of the object to be created.
-
-**Example:**
-
-```python
 class ShapeFactory:
     def get_shape(self, shape_type):
         if shape_type == "circle":
             return Circle()
         elif shape_type == "square":
             return Square()
-```
+  
+What is the self parameter?
+- Refers to the current instance of the class. It allows access to instance attributes and methods.
 
-Used when object creation logic is complex or dynamic.
-
----
-
-### **9. `self` Parameter**
-
-Refers to the current instance of the class.
-It allows access to instance attributes and methods.
-
-```python
-class Dog:
-    def bark(self):
-        print(f"{self} is barking!")
-```
-
----
-
-### **10. Abstract Base Classes (ABC)**
-
-Used to define interfaces that derived classes must implement.
+What are abstract base classes (ABC) in Python?
+- Used to define interfaces that derived classes must implement.
 Defined in `abc` module.
 
 ```python
@@ -274,66 +191,54 @@ class Dog(Animal):
 
 You can’t instantiate `Animal` directly — only subclasses that implement `speak()`.
 
-
-## ✅ **What is a decorator in Python, and where is it used?**
-
-A **decorator** is a function that takes another function as input, adds functionality to it, and returns a new function—without modifying the original function's code.
-
-**Used for:**
-
-* Logging
-* Authentication / authorization
-* Caching
-* Performance measurement
-* Input/output validation
-
-Example:
-
-```python
-def logger(func):
-    def wrapper(*args, **kwargs):
-        print(f"Calling {func.__name__}")
-        return func(*args, **kwargs)
-    return wrapper
-
-@logger
-def greet():
-    print("Hello")
-```
-
----
-
-## ✅ **Difference between a generator and a function that returns a list**
-
-### **Generator**
-
+What is a decorator in Python, and where is it used?
+- Decorator is use when you want to wrap a function as a function, you can take a function as input, add functionality and return a function
+- use for logging, log-in, caching, performance check, I/O validation
+  
+What's the difference between a generator and a regular function that returns a list?
+Generator
 * Uses `yield`
 * Produces values one at a time (lazy evaluation)
 * Doesn’t store all values in memory
-* Returns an *iterator*
+* Returns an iterator
 
-### **Function returning a list**
-
+Function returning a list
 * Computes all values upfront
 * Stores entire list in memory
 * Potentially expensive for large outputs
 
----
+  
+When would you choose generators over lists, and what are the memory implications?
+you chose generator when you want lazy evaluation and save some memory bc generator uses O(1) memory and list use O(n)
 
-## ✅ **When choose generators over lists? Memory implications**
+Explain the difference between threading, multiprocessing, and asyncio in Python
 
-Choose **generators** when:
+What is the Global Interpreter Lock (GIL)? How does it affect threading and multiprocessing?
 
-* Dataset is large or infinite
-* You want lazy evaluation
-* You want faster start time (first item available instantly)
+When to use threading, asyncio, multiprocess?
+What are CPU-bound vs IO-bound tasks?
 
-**Memory implications:**
+What's the difference between yield and return in a function
+`yield`: pause and return a value, function retains it state and you can resume later
+`return` just return and it's done
 
-* **List**: O(n) memory (stores everything)
-* **Generator**: O(1) memory (stores only the current value)
+What's the difference between using open() with explicit close() vs using the with statement
+- open/close: if an exception occur, it may never close -> resource leak
 
----
+```python
+f = open("file.txt")
+data = f.read()
+f.close()
+```
+
+- Using `with`: automticaly close the file, safer whrn there's exception
+
+```python
+with open("file.txt") as f:
+    data = f.read()
+```
+
+
 
 ## ✅ **Threading vs Multiprocessing vs Asyncio**
 
@@ -425,55 +330,9 @@ Choose **generators** when:
 
 ---
 
-## ✅ **Difference between `yield` and `return`**
-
-### `return`
-
-* Ends the function and returns a value
-* Function cannot continue execution afterward
-
-### `yield`
-
-* Pauses the function and returns a value
-* Function retains its state
-* Can resume execution on next iteration
-
----
-
-## ✅ **Difference between using `open()` with explicit `.close()` vs using `with`**
-
-### Explicit open/close:
-
-```python
-f = open("file.txt")
-data = f.read()
-f.close()
-```
-
-**Risks:**
-
-* If an exception occurs, `close()` may never be called
-* Can cause resource leaks
-
-### Using `with`
-
-```python
-with open("file.txt") as f:
-    data = f.read()
-```
-
-**Benefits:**
-
-* Automatically closes file
-* Safe even if exceptions occur
-* Cleaner and more Pythonic
-
----
-
 How to handle exceptions? Why is it important?
  - Exception handling: use try-except-finally block
  - prevent program crash and helps communicate erors
-
 
 What are primary keys and foreign keys? How are they used in relational databases?
 - primary key is unique in the table and can not be null, foreign key is use for provid
@@ -502,3 +361,4 @@ What are transactions and isolation levels? Explain the problems each isolation 
 
 
 What's the difference between PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints?
+
