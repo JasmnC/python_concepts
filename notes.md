@@ -127,6 +127,16 @@ OOP principles:
 3. Inheritance: we have subclass from superclass, and we can extend the superclass to reuse its functionality
 4. Polymorphism: allowing different objects to be treated throught the same interface, by overriding and overloading
 
+What are the four principles of OOP?
+What's the difference between __str__ and __repr__ magic methods?
+How do magic methods like __eq__ affect object comparison?
+Explain the difference between @classmethod and @staticmethod
+What are property decorators in Python?
+What's the difference between public, protected (_), and private (__) attributes?
+What's Singleton pattern? How to implement it?
+What's Factory pattern? How to implement it?
+What is the self parameter?
+What are abstract base classes (ABC) in Python?
 
 ### **2. `__str__` vs `__repr__`**
 
@@ -505,6 +515,7 @@ What is normalization?
 What are the different types of database relationships (1:1, 1:many, many:many) and how do you implement them in SQL?
 - 1-1 : one record can be link to exactly one record in another table -> foreign key in the table is also unique in that table
 - 1-many: 1 record can be link to many records in another table -> foreign key in the "many" side reference to the primary key to "1" side
-- many-many: 
+- many-many: many records link to many records -> need a intermediate/junction table
+
 What are transactions and isolation levels? Explain the problems each isolation level solves.
 What's the difference between PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints?
