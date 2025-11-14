@@ -137,6 +137,8 @@ How do magic methods like __eq__ affect object comparison?
 - used in == compareison, check value based equality
   
 Explain the difference between @classmethod and @staticmethod
+classmethod -> bound to a class
+staticmethod -> behaive like a regular method
 
 What are property decorators in Python?
 * decorators are wrappers in a function, it's a callable that returns callable
