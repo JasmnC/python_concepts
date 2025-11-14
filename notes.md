@@ -127,52 +127,29 @@ OOP principles:
 3. Inheritance: we have subclass from superclass, and we can extend the superclass to reuse its functionality
 4. Polymorphism: allowing different objects to be treated throught the same interface, by overriding and overloading
 
-What are the four principles of OOP?
 What's the difference between __str__ and __repr__ magic methods?
+* magic methods are method starting and ending in __, built-in class in python
+      __str__ defines the behaviour when str() is called -> user-friendly
+  and __repr__ return a machine readable representation of a type -> developer friendly
+  
 How do magic methods like __eq__ affect object comparison?
+* Magic methods (dunder methods) define how built-in operators work for custom objects.
+- used in == compareison, check value based equality
+  
 Explain the difference between @classmethod and @staticmethod
+
 What are property decorators in Python?
+* decorators are wrappers in a function, it's a callable that returns callable
+ - use as @property
+ - can have getters, setters, deleters
+
 What's the difference between public, protected (_), and private (__) attributes?
 What's Singleton pattern? How to implement it?
 What's Factory pattern? How to implement it?
 What is the self parameter?
 What are abstract base classes (ABC) in Python?
 
-### **2. `__str__` vs `__repr__`**
 
-* **`__str__`** → Returns a *user-friendly* string representation of an object, meant for readability (`str(obj)` or `print(obj)`).
-* **`__repr__`** → Returns a *developer-friendly* representation of an object, ideally one that can recreate the object (`repr(obj)` or in the REPL).
-
-**Example:**
-
-```python
-class Person:
-    def __str__(self):
-        return "Person object"
-    def __repr__(self):
-        return "Person(name='John', age=30)"
-```
-
----
-
-### **3. Magic Methods like `__eq__`**
-
-Magic methods (dunder methods) define how built-in operators work for custom objects.
-
-* **`__eq__`** defines equality (`==`).
-* **`__lt__`**, `__gt__`, etc., define comparisons.
-
-**Example:**
-
-```python
-class Point:
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
-```
-
-Now, `Point(1,2) == Point(1,2)` returns `True`.
 
 ---
 
@@ -518,4 +495,10 @@ What are the different types of database relationships (1:1, 1:many, many:many) 
 - many-many: many records link to many records -> need a intermediate/junction table
 
 What are transactions and isolation levels? Explain the problems each isolation level solves.
+1. Read uncommited: lowest level, can see changes made by other transactions -> cause dirty read, non repratable reads, phantom reads
+2. Read committed -> only see changes by other committed reads, solves dirty read
+3. Repeatable reads -> gurantee transaction will see same data throughtout its duration, eliminates non-repeatable read
+4. Serializeable -> highest level, all transactions executed sequentially, no phantom reads
+
+
 What's the difference between PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints?
