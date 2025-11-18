@@ -364,3 +364,211 @@ What are transactions and isolation levels? Explain the problems each isolation 
 
 What's the difference between PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints?
 
+Below are clear, interview-ready explanations for each question, with practical examples and when to use each concept.
+
+---
+
+## **1. Difference Between a View, Materialized View, and a Table**
+
+### **Table**
+
+* **Definition:** Physically stores data in rows and columns.
+* **Use Case:** Persistent storage of actual data.
+
+### **View**
+
+* **Definition:** A **virtual table** based on a SQL query; stores **no data**—computed at query time.
+* **Pros:** Always shows the latest data.
+* **Cons:** Can be slower because results must be recomputed each time.
+* **Use Case:**
+
+  * Security (expose limited columns).
+  * Simplify complex queries.
+
+### **Materialized View**
+
+* **Definition:** A view whose results are **physically stored/cached**.
+* **Pros:** Very fast to query.
+* **Cons:** Must be refreshed (manually or scheduled). Can become stale.
+* **Use Case:**
+
+  * Analytics or dashboards.
+  * Expensive aggregations on large datasets.
+
+---
+
+## **2. What Is ORM? Why Do We Need It?**
+
+**ORM (Object-Relational Mapping)** is a technique that maps database tables to program objects (classes).
+
+### **Why we need ORM:**
+
+* Avoid writing raw SQL for CRUD operations.
+* Prevent SQL injection by using parameterized queries.
+* Boost development speed with abstractions.
+* Maintain database-agnostic code.
+
+### **Examples**
+
+* SQLAlchemy (Python)
+* Hibernate (Java)
+* Django ORM
+
+---
+
+## **3. Explain ACID Properties**
+
+These ensure reliable transactions in a database:
+
+### **A – Atomicity**
+
+* A transaction is **all or nothing**.
+* Example: Money transfer—either debit and credit both happen or neither.
+
+### **C – Consistency**
+
+* The database must move from **one valid state to another valid state**.
+* Constraints must always hold (e.g., foreign keys, unique keys).
+
+### **I – Isolation**
+
+* Concurrent transactions should not interfere.
+* Example: Two users updating the same row see isolated states.
+
+### **D – Durability**
+
+* Once a transaction commits, the result is permanent—even after crash/restart.
+
+---
+
+## **4. Explain the CAP Theorem**
+
+In a distributed system, you can only guarantee **two** of the following three at the same time:
+
+### **C – Consistency**
+
+All nodes see the same data at the same time.
+
+### **A – Availability**
+
+Every request receives a response—even if outdated.
+
+### **P – Partition Tolerance**
+
+The system continues to operate even if communication between nodes fails.
+
+### **Examples**
+
+* **CP systems:** HBase, MongoDB (in some configs)
+* **AP systems:** Cassandra, DynamoDB
+
+---
+
+## **5. When Choose SQL vs NoSQL?**
+
+### **Choose SQL (Relational) when:**
+
+* ACID transactions are required (banking, accounting).
+* Data is highly structured with fixed schema.
+* You need complex joins and analytics.
+
+### **Choose NoSQL when:**
+
+* Horizontal scalability is a priority.
+* Schema needs to evolve rapidly.
+* Handling large volumes of semi-structured/unstructured data.
+* Eventual consistency is acceptable.
+
+---
+
+## **6. What Is Eventual Consistency?**
+
+A consistency model where:
+
+* After some time and no new updates, **all nodes converge** to the same value.
+* Not immediate; temporary inconsistencies are acceptable.
+
+### **Use Cases**
+
+* Social media feeds
+* Shopping carts
+* DNS
+
+---
+
+## **7. Different Consistency Models**
+
+### **Strong Consistency**
+
+* Reads always return the most recent write.
+* Behaves like a single-node database.
+
+### **Weak Consistency**
+
+* No guarantee that you will see the most recent write.
+
+### **Eventual Consistency**
+
+* Weak at first, but guarantees convergence over time.
+
+---
+
+## **8. Horizontal Scaling vs Vertical Scaling**
+
+### **Vertical Scaling (Scale Up)**
+
+* Increase resources of a single machine (CPU, RAM, SSD).
+* Simple but limited by hardware constraints.
+
+### **Horizontal Scaling (Scale Out)**
+
+* Add more servers/nodes.
+* Supports very large workloads.
+* More complex (load balancing, sharding, distributed systems).
+
+---
+
+## **9. How Does MongoDB Handle Transactions and ACID?**
+
+Historically, MongoDB was not fully ACID across multiple documents. Today:
+
+### **Single-document operations**
+
+* **Always ACID** due to document atomicity.
+
+### **Multi-document transactions (since MongoDB 4.0)**
+
+* ACID-compliant across multiple documents and collections.
+* Uses a two-phase commit-like mechanism internally.
+
+### **Caveats**
+
+* Transactions come with performance cost.
+* Not designed for heavy transactional workloads like SQL databases.
+
+---
+
+## **10. What Is Sharding? How Does It Differ From Partitioning?**
+
+### **Sharding**
+
+* Splitting a dataset across multiple machines **to scale horizontally**.
+* Each shard is a separate database server.
+* Often used in NoSQL systems (MongoDB, Cassandra).
+
+### **Partitioning**
+
+* Splitting a dataset into segments **within the same logical database**.
+* Can be:
+
+  * **Horizontal partitioning:** rows split by range/hash.
+  * **Vertical partitioning:** columns split into different tables.
+
+### **Difference**
+
+* **Sharding = distributed across multiple servers.**
+* **Partitioning = dividing data logically; may or may not involve multiple servers.**
+
+---
+
+If you want, I can turn these into **flashcards**, **cheat sheets**, or tailor them for **Big Data Engineer interviews** (since that's one of your goals).
